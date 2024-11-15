@@ -5,23 +5,71 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
+import { ButtonVariant } from "./components/lbj-button/lbj-button-types";
+import { IconName, Size } from "./utils/enums";
+export { ButtonVariant } from "./components/lbj-button/lbj-button-types";
+export { IconName, Size } from "./utils/enums";
 export namespace Components {
+    interface LbjButton {
+        /**
+          * Defines active state of button
+         */
+        "activeState": boolean;
+        /**
+          * The disabled state of the button.
+         */
+        "disabled": boolean;
+        /**
+          * If no url, then falls back to <button> element (optional).
+         */
+        "href": string;
+        /**
+          * An icon to display to the right of text (optional).
+         */
+        "icon": IconName | undefined;
+        /**
+          * An icon to display to the left of text (optional).
+         */
+        "iconleft": IconName | undefined;
+        /**
+          * An icon to display to the right of text (optional).
+         */
+        "iconsize": Size;
+        /**
+          * Determines if the button is a breakout button.
+         */
+        "isBreakout": boolean;
+        /**
+          * Display mode when nested inside another component.
+         */
+        "mode": string;
+        /**
+          * Dropdown nav items.
+         */
+        "navItems": { title: string; url: string }[];
+        /**
+          * The internal padding size. sm|md|lg|xl|xxl
+         */
+        "size": Size;
+        /**
+          * Defines target for links (optional).
+         */
+        "target": string;
+        /**
+          * The button styling to display.
+         */
+        "variant": ButtonVariant;
+    }
     interface MyComponent {
-        /**
-          * The first name
-         */
-        "first": string;
-        /**
-          * The last name
-         */
-        "last": string;
-        /**
-          * The middle name
-         */
-        "middle": string;
     }
 }
 declare global {
+    interface HTMLLbjButtonElement extends Components.LbjButton, HTMLStencilElement {
+    }
+    var HTMLLbjButtonElement: {
+        prototype: HTMLLbjButtonElement;
+        new (): HTMLLbjButtonElement;
+    };
     interface HTMLMyComponentElement extends Components.MyComponent, HTMLStencilElement {
     }
     var HTMLMyComponentElement: {
@@ -29,25 +77,65 @@ declare global {
         new (): HTMLMyComponentElement;
     };
     interface HTMLElementTagNameMap {
+        "lbj-button": HTMLLbjButtonElement;
         "my-component": HTMLMyComponentElement;
     }
 }
 declare namespace LocalJSX {
+    interface LbjButton {
+        /**
+          * Defines active state of button
+         */
+        "activeState"?: boolean;
+        /**
+          * The disabled state of the button.
+         */
+        "disabled"?: boolean;
+        /**
+          * If no url, then falls back to <button> element (optional).
+         */
+        "href"?: string;
+        /**
+          * An icon to display to the right of text (optional).
+         */
+        "icon"?: IconName | undefined;
+        /**
+          * An icon to display to the left of text (optional).
+         */
+        "iconleft"?: IconName | undefined;
+        /**
+          * An icon to display to the right of text (optional).
+         */
+        "iconsize"?: Size;
+        /**
+          * Determines if the button is a breakout button.
+         */
+        "isBreakout"?: boolean;
+        /**
+          * Display mode when nested inside another component.
+         */
+        "mode"?: string;
+        /**
+          * Dropdown nav items.
+         */
+        "navItems"?: { title: string; url: string }[];
+        /**
+          * The internal padding size. sm|md|lg|xl|xxl
+         */
+        "size"?: Size;
+        /**
+          * Defines target for links (optional).
+         */
+        "target"?: string;
+        /**
+          * The button styling to display.
+         */
+        "variant"?: ButtonVariant;
+    }
     interface MyComponent {
-        /**
-          * The first name
-         */
-        "first"?: string;
-        /**
-          * The last name
-         */
-        "last"?: string;
-        /**
-          * The middle name
-         */
-        "middle"?: string;
     }
     interface IntrinsicElements {
+        "lbj-button": LbjButton;
         "my-component": MyComponent;
     }
 }
@@ -55,6 +143,7 @@ export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
+            "lbj-button": LocalJSX.LbjButton & JSXBase.HTMLAttributes<HTMLLbjButtonElement>;
             "my-component": LocalJSX.MyComponent & JSXBase.HTMLAttributes<HTMLMyComponentElement>;
         }
     }
